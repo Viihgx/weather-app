@@ -28,9 +28,9 @@ const App = () => {
       {error && <ErrorMessage message={error} />}
       <div className="weather-layout">
         {weather && <CurrentWeather weather={weather} />}
+        {forecast && <ForecastExtended forecast={forecast} />}
         {forecast && <Forecast forecast={forecast} />}
         {forecast && <ForecastChart forecast={forecast} />}
-        {forecast && <ForecastExtended forecast={forecast} />}
       </div>
     </div>
   );

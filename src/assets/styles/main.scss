@@ -1,20 +1,27 @@
 body {
-  background-color: #e0f7fa;
+  background: linear-gradient(145deg, rgb(205, 205, 205), #b1b0b0);
   font-family: 'Arial', sans-serif;
+  align-items: center;
+  color: #ffffff; /* Texto claro para contraste */
 }
 
 .app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 2rem;
-  background: #ffffff;
+  background: linear-gradient(145deg, #d4d4d4, #e3e2e2);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 1500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 1300px;
   margin: auto;
+  margin-top: 3rem;
+  color: #ffffff; /* Texto claro para contraste */
 }
 
 .weather-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr; /* Ajustar a proporção das colunas */
   grid-template-rows: auto auto auto;
   gap: 1rem;
   margin-top: 2rem;
@@ -23,6 +30,15 @@ body {
 .weather-layout .current-weather {
   grid-column: 1 / span 1;
   grid-row: 1 / span 1;
+  height: 400px; /* Ajuste a altura conforme necessário */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-layout .forecast-extended {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
 }
 
 .weather-layout .forecast {
@@ -31,22 +47,61 @@ body {
 }
 
 .weather-layout .forecast-chart {
-  grid-column: 1 / span 1;
-  grid-row: 2 / span 1;
-}
-
-.weather-layout .forecast-extended {
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;
 }
 
 .card {
   padding: 1rem;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(234, 234, 234, 0.9), rgba(213, 213, 213, 0.9)); /* Gradiente suave */
+  border-radius: 15px; /* Bordas mais suaves */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais sutil */
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Borda suave */
+  color: #000; /* Texto escuro para contraste */
+  transition: transform 0.3s, box-shadow 0.3s; /* Animação suave para hover */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Elevação no hover */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
 }
 
 .chart-container {
   margin-top: 2rem;
 }
+
+.display-4 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Estilo para a previsão estendida */
+.forecast-extended-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem; /* Adiciona um pouco mais de espaço interno */
+  background: rgba(228, 228, 228, 0.9); /* Fundo branco translúcido */
+  border-radius: 10px; /* Bordas suaves */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  color: #000; /* Texto escuro para contraste */
+  margin-bottom: 0.5rem; /* Espaço entre os itens */
+}
+
+.forecast-extended-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.forecast-extended-item div {
+  display: flex;
+  align-items: center;
+}
+
+.forecast-extended-item .temperature,
+.forecast-extended-item .date,
+.forecast-extended-item .day {
+  margin-right: 20px;
+}
+

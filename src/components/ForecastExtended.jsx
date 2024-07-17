@@ -1,26 +1,53 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/styles/main.scss';
 
 const ForecastExtended = ({ forecast }) => {
-  const dailyForecasts = forecast.list.filter(item => item.dt_txt.includes('12:00:00')).slice(0, 7);
+  // Filtra os dados da previsão para pegar apenas um por dia (cada 8 intervalos de 3 horas)
+  const today = new Date().getDate();
+  const extendedForecast = [];
+  const dates = new Set();
+
+  for (const item of forecast.list) {
+    const itemDate = new Date(item.dt * 1000);
+    const date = itemDate.getDate();
+
+    // Ignorar previsões para o dia atual
+    if (date === today) continue;
+
+    // Adicionar previsão para um novo dia
+    if (!dates.has(date)) {
+      dates.add(date);
+      extendedForecast.push(item);
+    }
+
+    // Parar quando tivermos 7 dias de previsão
+    if (extendedForecast.length >= 8) break;
+  }
 
   return (
-    <div className="card forecast-extended">
-      <h2>Previsão para os Próximos 7 ou 8 Dias</h2>
-      <div className="row">
-        {dailyForecasts.map((item, index) => (
-          <div className="col-md-3" key={index}>
-            <div className="forecast-item card">
-              <p>{new Date(item.dt * 1000).toLocaleDateString('pt-BR')}</p>
-              <p>Temp: {item.main.temp}°C</p>
-              <p>{item.weather[0].description}</p>
+    <Card className="card">
+      <Card.Body>
+        <Card.Title>Previsão para os Próximos 5 Dias</Card.Title>
+        {extendedForecast.map((item, index) => (
+          <div key={index} className="forecast-extended-item">
+            <img
+              src={`http://openweathermap.org/img/wn/${item.weather[0].icon}.png`}
+              alt={item.weather[0].description}
+            />
+            <div className="temperature">
+              {Math.round(item.main.temp_max)}°C / {Math.round(item.main.temp_min)}°C
+            </div>
+            <div className="date">
+              {new Date(item.dt * 1000).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric' })}
+            </div>
+            <div className="day">
+              {new Date(item.dt * 1000).toLocaleDateString('pt-BR', { weekday: 'short' })}
             </div>
           </div>
         ))}
-      </div>
-    </div>
+      </Card.Body>
+    </Card>
   );
 };
 
