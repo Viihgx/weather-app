@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/styles/main.scss';
+import useWeather from './hooks/useWeather';
+import CurrentWeather from './components/CurrentWeather';
+import Forecast from './components/Forecast';
+import ForecastChart from './components/ForecastChart';
+import ForecastExtended from './components/ForecastExtended';
+import Loader from './components/Loader';
+import ErrorMessage from './components/ErrorMessage';
+import SearchBar from './components/SearchBar';
 
-function App() {
+const App = () => {
+  const {
+    city,
+    setCity,
+    weather,
+    forecast,
+    loading,
+    error,
+    fetchWeather,
+  } = useWeather();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container app-container">
+      <SearchBar city={city} setCity={setCity} fetchWeather={fetchWeather} />
+      {loading && <Loader />}
+      {error && <ErrorMessage message={error} />}
+      <div className="weather-layout">
+        {weather && <CurrentWeather weather={weather} />}
+        {forecast && <Forecast forecast={forecast} />}
+        {forecast && <ForecastChart forecast={forecast} />}
+        {forecast && <ForecastExtended forecast={forecast} />}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
