@@ -7,7 +7,7 @@ const CurrentWeather = ({ weather }) => {
   const iconUrl = `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
   return (
     <div className="card current-weather">
-      <h2>Clima Atual em {weather.name}</h2>
+      <h2>{weather.name}</h2>
       <div className="d-flex flex-column align-items-center">
         <img src={iconUrl} alt="Weather Icon" style={{ width: '100px', height: '100px' }} />
         <div>
